@@ -34,6 +34,7 @@ import {
 } from '../authentication/jwt.strategy';
 import { SafeguardingService } from '../safeguarding/safeguarding.service';
 import { ChatMessageDataLoader } from './message.dataloader';
+import { MESSAGES } from '@nestjs/core/constants';
 
 type ChatMessageReference = { __typename: string; id: ObjectId };
 
@@ -129,7 +130,7 @@ export class MessageResolver {
     @Args('likeMessageDto') likeMessageDto: LikeMessageDto,
     @AuthenticatedUser() authenticatedUser: IAuthenticatedUser,
   ): Promise<ChatMessage> {
-    await this.messageLogic.like(likeMessageDto, authenticatedUser);
+    return await this.messageLogic.like(likeMessageDto, authenticatedUser);
   }
 
   @Mutation(() => ChatMessage)
